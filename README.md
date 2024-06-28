@@ -1,14 +1,13 @@
 # fed-task-signup
 
-This template should help get you started developing with Vue 3 in Vite.
+```sh
+This project is using vite + pinia.
+Please use node v.16.17.1 version or higher version.
+Thank you.
 
-## Recommended IDE Setup
-
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
-
-## Customize configuration
-
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Warm regards,
+Chester
+```
 
 ## Project Setup
 
@@ -21,16 +20,3 @@ npm install
 ```sh
 npm run dev
 ```
-
-### Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
-# fed-task-signup
