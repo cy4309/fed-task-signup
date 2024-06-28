@@ -1,16 +1,19 @@
 <script setup>
-import { RouterLink } from 'vue-router'
+import { RouterView } from 'vue-router'
 </script>
 
 <template>
   <div id="app">
-    <RouterLink :to="{ name: 'home' }">← Back</RouterLink>
-    <RouterLink to="/login">Log in</RouterLink>
+    <RouterView />
   </div>
 </template>
 
-<style scoped>
+<style>
 #app {
   height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f1f5ff;
 }
 </style>
