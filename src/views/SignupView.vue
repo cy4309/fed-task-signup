@@ -1,4 +1,9 @@
-<script setup></script>
+<script setup>
+import Google from '@/assets/icons/GoogleSvg.vue'
+import Facebook from '@/assets/icons/FacebookSvg.vue'
+import TickInactive from '@/assets/icons/TickInactive.vue'
+import TickActive from '@/assets/icons/TickActive.vue'
+</script>
 
 <template>
   <div class="card">
@@ -10,8 +15,14 @@
         <h3 class="card__title">Start from free</h3>
         <h2 class="card__title--important">Create an account</h2>
         <div class="card__btn">
-          <button class="btn btn--google">Google</button>
-          <button class="btn btn--fb">Facebook</button>
+          <button class="btn btn--google">
+            <Google />
+            Google
+          </button>
+          <button class="btn btn--fb">
+            <Facebook />
+            Facebook
+          </button>
         </div>
       </div>
       <form @submit.prevent>
@@ -26,11 +37,11 @@
           <input type="password" placeholder="Password" />
           <div class="form__validation">
             <div class="form__validation--hint">
-              <img src="" alt="123" />
+              <TickActive />
               <p>8 Characters min</p>
             </div>
             <div class="form__validation--hint">
-              <img src="" alt="456" />
+              <TickInactive />
               <p>One number</p>
             </div>
           </div>

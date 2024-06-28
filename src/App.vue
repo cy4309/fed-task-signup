@@ -8,12 +8,4 @@ import { RouterView } from 'vue-router'
   </div>
 </template>
 
-<style>
-#app {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f1f5ff;
-}
-</style>
+<style></style>
