@@ -10,6 +10,8 @@ import IconTickActive from '@/assets/icons/IconTickActive.vue'
 import IconWarningCircle from '@/assets/icons/IconWarningCircle.vue'
 import IconViewInactive from './../assets/icons/IconViewInactive.vue'
 import IconViewActive from './../assets/icons/IconViewActive.vue'
+// import pinia store
+import { useUserStore } from '@/stores/userStore.js'
 
 // declair
 const state = reactive({
@@ -25,8 +27,11 @@ const state = reactive({
   // validation
   isPass8characters: false,
   isPass1number: false,
+  isCheckbox: false,
   errorArr: []
 })
+const userStore = useUserStore()
+const { postSignup } = userStore
 
 // to check if the field has error
 const hasError = (fieldName) => state.errorArr.includes(fieldName)
@@ -35,59 +40,38 @@ const toggleViewIcon = () => {
   state.isPasswordVisible = !state.isPasswordVisible
 }
 
-const userSignup = () => {
-  // replace all the blanks
-  state.userData.firstname = state.userData.firstname.replace(/\s+/g, '')
-  state.userData.lastname = state.userData.lastname.replace(/\s+/g, '')
+const userSignup = async () => {
+  // trim all the blanks
+  state.userData.firstname = state.userData.firstname.trim()
+  state.userData.lastname = state.userData.lastname.trim()
+  state.userData.email = state.userData.email.trim()
+  state.userData.password = state.userData.password.trim()
+
   // regex
-  const nameRegex = /^[A-Za-z]+$/ // a-z || A-Z
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+  const nameRegex = /^[A-Za-z]+$/ // regex a-z || A-Z
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/ // regex email
+  const passwordLengthRegex = /.{8,}/ // password length: at least 8 characters
+  const passwordDigitRegex = /\d/ // password digits: at least 1 number
 
   // reset errorArr
   state.errorArr = []
-  // check if no null
-  for (const key of Object.keys(state.userData)) {
-    if (!state.userData[key]) state.errorArr.push(key)
-  }
-  for (const key of Object.keys(state.userData)) {
-    switch (key) {
-      case 'firstname':
-      case 'lastname': {
-        const isNameValid = nameRegex.test(state.userData[key])
-        state.isErrorMsg = !isNameValid
-        if (!isNameValid) {
-          state.errorArr.push(key)
-        }
-        break
-      }
-      case 'email': {
-        const isEmailValid = emailRegex.test(state.userData.email)
-        state.isErrorMsg = !isEmailValid
-        if (!isEmailValid) {
-          state.errorArr.push(key)
-        }
-        break
-      }
-      case 'password': {
-        // check password length: at least 8 characters
-        const isPasswordLengthRegex = state.userData.password.length >= 8
-        state.isPass8characters = isPasswordLengthRegex
 
-        // regex for password digits: at least 1 number
-        const isPasswordDigitRegex = /\d/.test(state.userData.password)
-        state.isPass1number = isPasswordDigitRegex
+  // check if passed validation
+  if (!nameRegex.test(state.userData.firstname)) state.errorArr.push('firstname')
+  if (!nameRegex.test(state.userData.lastname)) state.errorArr.push('lastname')
+  if (!emailRegex.test(state.userData.email)) state.errorArr.push('email')
+  state.isPass8characters = passwordLengthRegex.test(state.userData.password)
+  state.isPass1number = passwordDigitRegex.test(state.userData.password)
+  if (!state.isPass8characters || !state.isPass1number) state.errorArr.push('password')
+  if (!state.isCheckbox) state.errorArr.push('checkbox')
 
-        state.isErrorMsg = !isPasswordLengthRegex || !isPasswordDigitRegex
-        state.isShowHintMsg = true
-        if (!isPasswordLengthRegex || !isPasswordDigitRegex) {
-          state.errorArr.push(key)
-        }
-        break
-      }
-    }
-  }
   state.isErrorMsg = state.errorArr.length > 0
   state.isShowHintMsg = true
+
+  // Only proceed if there are no errors
+  if (!state.isErrorMsg) {
+    await postSignup(state.userData)
+  }
 }
 </script>
 
@@ -177,7 +161,12 @@ const userSignup = () => {
             </div>
             <div class="form__submit">
               <div class="form__submit--tickbox">
-                <input type="checkbox" id="agree" />
+                <input
+                  type="checkbox"
+                  id="agree"
+                  v-model="state.isCheckbox"
+                  :class="{ error: hasError('checkbox') }"
+                />
                 <label for="agree">
                   By creating account, you agree to accept our Privacy Policy Terms of Service and
                   Notification settings.
