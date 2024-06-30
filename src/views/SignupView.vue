@@ -191,16 +191,18 @@ const userSignup = async () => {
 .wrapper--signup {
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   background-color: #f1f5ff;
   color: black;
+  height: 100vh;
 }
 /* card */
 .card {
   width: 610px;
   /* height: 718px; */
   background-color: #fff;
-  padding: 3% 6%;
+  padding: 2%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -326,5 +328,38 @@ input[type='checkbox'] {
 .btn--return--login {
   color: #3c71ff;
   font-weight: 700;
+}
+/* media query */
+@media (max-width: 768px) {
+  /* tablet */
+  .card {
+    width: 90%;
+    margin: 5% auto;
+  }
+  .btn--return {
+    margin-bottom: 20px;
+  }
+  .form__input,
+  .form__validation {
+    flex-direction: column;
+  }
+  input[type='text'],
+  input[type='email'],
+  #password {
+    width: 100%;
+  }
+}
+@media (max-width: 480px) {
+  /* mobile */
+  .card {
+    width: 100%;
+  }
+  .card__title--important,
+  .card__title {
+    font-size: 20px;
+  }
+  input[type='checkbox'] {
+    height: 50px;
+  }
 }
 </style>
