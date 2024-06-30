@@ -1,34 +1,9 @@
 @import './base.css';
 
-#app {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f1f5ff;
-  color: black;
+#app {}
+
+.icon {
+  margin-right: 10px;
 }
 
-btn {
-  border-radius: 4px;
-}
-
-/* #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
-} */
-
-@media (min-width: 1024px) {
-  /* body {
-    display: flex;
-    place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  } */
-}
+@media (min-width: 1024px) {}

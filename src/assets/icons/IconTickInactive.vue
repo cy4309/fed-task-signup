@@ -10,4 +10,4 @@
     />
   </svg>
 </template>
-<style></style>
+<style scoped></style>
